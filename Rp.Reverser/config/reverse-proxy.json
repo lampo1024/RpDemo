@@ -1,0 +1,42 @@
+{
+    "Clusters": {
+        "clusterCollector": {
+            "Destinations": {
+                "destination1": {
+                    "Address": "http://localhost:11000"
+                },
+                "destination2": {
+                    "Address": "http://localhost:12000"
+                }
+            },
+            "HealthCheck": {
+                "Active": {
+                    "Enabled": "true",
+                    "Interval": "00:00:10",
+                    "Path": "/health/check",
+                    "Policy": "ConsecutiveFailures",
+                    "Timeout": "00:00:10"
+                },
+                "Passive": {
+                    "Enabled": "True",
+                    "Policy": "TransportFailureRate",
+                    "ReactivationPeriod": "00:00:10"
+                }
+            },
+            "HttpRequest": {
+                "Timeout": "00:02:00",
+                "Version": "2",
+                "VersionPolicy": "RequestVersionOrLower"
+            },
+            "LoadBalancingPolicy": "Random"
+        }
+    },
+    "Routes": {
+        "routeCollector": {
+            "ClusterId": "clusterCollector",
+            "Match": {
+                "Path": "{**catch-all}"
+            }
+        }
+    }
+}

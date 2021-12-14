@@ -1,10 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Host.ConfigureAppConfiguration((_, bd) =>
+{
+    bd.AddAgileConfig();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+    .LoadFromConfig(builder.Configuration);
 
 var app = builder.Build();
 
